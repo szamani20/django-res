@@ -1,0 +1,17 @@
+{% extends 'core/base.html' %}
+
+
+{% block title %} Home {% endblock %}
+
+{% block body %}
+<div class="jumbotron" align="center">
+    {% if request.user.is_authenticated %}
+        <span><h3 class="h3">Congrats. You are logged in as </h3>{% block content %} {{request.user.first_name}} {% endblock %}</span>
+
+    {% else %}
+        <a class="btn btn-lg btn-primary" href="{% url 'core:login' %}">Log in</a>
+        <span class="h3">or</span>
+        <a class="btn btn-lg btn-primary" href="{% url 'core:register' %}">Register</a>
+    {% endif %}
+</div>
+{% endblock %}

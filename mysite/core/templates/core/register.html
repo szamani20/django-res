@@ -1,0 +1,39 @@
+{% extends 'core/base.html' %}
+{% load bootstrap3 %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+
+    {% if form.errors %}
+        {{ form.errors }}
+    {% endif %}
+
+    <form method="post" action="{% url 'core:register' %}">
+        {% csrf_token %}
+        <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12" style="margin-bottom: 20px;">
+            <h1 style="display: inline; margin-right: 20px;">Register</h1><span class="text-muted">or <a
+                href="{% url 'core:login' %}">Log in</a> if you already have an account</span>
+        </div>
+        <div class="col-sm-12 col-xs-12 col-md-6 col-lg-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <span>User data</span>
+                </div>
+                <div class="panel-body">
+                    {% bootstrap_form register_form %}
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
+            <div class="well">
+                {% buttons %}
+                    <button type="submit" class="btn btn-primary">
+                        {% bootstrap_icon "star" %} Submit
+                    </button>
+                {% endbuttons %}
+                <span>Already have an account? <a href="{% url 'core:login' %}">Log in</a> here</span>
+            </div>
+        </div>
+    </form>
+{% endblock %}

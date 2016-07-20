@@ -1,0 +1,50 @@
+{% extends 'core/base.html' %}
+{% load bootstrap3 %}
+
+{% block title %} Change profile | {{ request.user.get_short_name }} {% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <form method="post" action="{% url 'core:profile' %}">
+
+            {% csrf_token %}
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <span>Your profile</span>
+                        </div>
+                        <div class="panel-body">
+                            <div style="width: 100%; display: table">
+                                <div style="width: 85%; display: table-cell; vertical-align: middle">
+                                    <div class="form-group">
+                                        <label class="control-label" for="id_username">Username</label>
+
+                                        <div class="form-control" id="id_username">{{ request.user.username }}</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label" for="id_email">Email address</label>
+
+                                        <div class="form-control" id="id_email">{{ request.user.email }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% bootstrap_form profile_form %}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="well">
+                        {% buttons %}
+                        <button type="submit" class="btn btn-primary">
+                            {% bootstrap_icon "done" %} Save
+                        </button>
+                        {% endbuttons %}
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

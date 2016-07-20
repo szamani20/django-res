@@ -1,0 +1,24 @@
+{% extends 'core/base.html' %}
+{% load bootstrap3 %}
+
+{% block title %} Login page {% endblock %}
+
+{% block body %}
+
+    <div class="col-sm-12 col-xs-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+        <h1>Login</h1>
+
+        <form action="{% url 'core:login' %}" method="post" class="form">
+            {% csrf_token %}
+            {% bootstrap_form login_form %}
+            {% buttons %}
+                <button type="submit" class="btn btn-primary">
+                    {% bootstrap_icon "star" %} Submit
+                </button>
+            {% endbuttons %}
+        </form>
+        <span>Don't have an account? <a href="{% url 'core:register' %}">Sign up</a> here!</span>
+
+    </div>
+
+{% endblock %}
