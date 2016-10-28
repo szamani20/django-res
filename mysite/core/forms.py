@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import Member
+from .models import Member, Food
 
 
 class RegistrationForm(UserCreationForm):
@@ -15,9 +15,9 @@ class RegistrationForm(UserCreationForm):
     class Meta:
         model = Member
         fields = (
-            'username', 'email', 'first_name',
-            'last_name', 'address',
-            'type_of_food', 'phone_numbers'
+            'email', 'name',
+            'address', 'type_of_food',
+            'phone_numbers'
         )
         help_texts = {
 
@@ -34,9 +34,9 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = Member
         fields = (
-            'first_name', 'last_name',
-            'foods', 'address',
-            'type_of_food', 'phone_numbers'
+            'name',
+            'address', 'type_of_food',
+            'phone_numbers', 'brand_photo'
         )
         help_texts = {
 
@@ -44,3 +44,13 @@ class UserProfileForm(forms.ModelForm):
         labels = {
 
         }
+
+
+class UserFoodForm(forms.ModelForm):
+    class Meta:
+        model = Food
+
+        fields = (
+            'title', 'price',
+            'description', "food_photo"
+        )

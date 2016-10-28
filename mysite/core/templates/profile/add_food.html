@@ -1,0 +1,31 @@
+{% extends 'core/base.html' %}
+{% load bootstrap3 %}
+
+{% block title %} add food | {{ request.user.get_short_name }} {% endblock %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <form method="post" enctype="multipart/form-data" action="{% url 'core:add_food' %}">
+
+            {% csrf_token %}
+            <div class="container-fluid">
+                <div class="row">
+                    {% bootstrap_form add_food_form %}
+                </div>
+                <div class="row">
+                    <div class="well">
+                        {% buttons %}
+                        <button type="submit" class="btn btn-primary">
+                            {% bootstrap_icon "done" %} Save
+                        </button>
+                        {% endbuttons %}
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

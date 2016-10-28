@@ -1,0 +1,15 @@
+{% extends 'core/base.html' %}
+{% load bootstrap3 %}
+
+{% block title %} online order {% endblock %}
+
+{% block body %}
+
+{% for order in order_list %}
+    <p>{{ order.0 }} has ordered {{ order.1 }}
+        for total price of : {{ order.0.total_price }} ,
+        <a href="{% url 'core:online_order' forloop.counter0 %}"> Checkout</a>
+    </p>
+{% endfor %}
+
+{% endblock %}

@@ -1,17 +1,61 @@
 {% extends 'core/base.html' %}
-
+{% load bootstrap3 %}
 
 {% block title %} Home {% endblock %}
 
 {% block body %}
 <div class="jumbotron" align="center">
     {% if request.user.is_authenticated %}
-        <span><h3 class="h3">Congrats. You are logged in as </h3>{% block content %} {{request.user.first_name}} {% endblock %}</span>
+    <span><h3 class="h3">Congrats. You are logged in as </h3>{{request.user.name}}</span>
+    {% if user.brand_photo %}
+    <figure>
+        <img src="{{user.brand_photo.url}}" width="250" height="150"
+             class="img-responsive">
+    </figure>
+    {% endif %}
 
     {% else %}
-        <a class="btn btn-lg btn-primary" href="{% url 'core:login' %}">Log in</a>
-        <span class="h3">or</span>
-        <a class="btn btn-lg btn-primary" href="{% url 'core:register' %}">Register</a>
+    <a class="btn btn-lg btn-primary" href="{% url 'core:login' %}">Log in</a>
+    <span class="h3">or</span>
+    <a class="btn btn-lg btn-primary" href="{% url 'core:register' %}">Register</a>
     {% endif %}
 </div>
+
+<div id="best-deal">
+    <div class="container">
+        <div class="row">
+            {% if request.user.is_authenticated %}
+
+            {% for food in foods %}
+
+            <div class="col-md-4 item-block animate-box" data-animate-effect="fadeIn" itemscope
+                 itemtype="http://schema.org/Product">
+                <div class="fh5co-property" itemscope itemtype="http://schema.org/Product">
+                    {% if food.food_photo %}
+                    <figure>
+                        <img src="{{food.food_photo.url}}" width="300" height="200" alt="{{food.title}}"
+                             title="{{food.title}}"
+                             class="img-responsive" itemprop="image">
+                    </figure>
+                    {% endif %}
+
+                    <div class="fh5co-property-innter">
+                        <h3 itemprop="name"><a href="{% url 'core:edit_food' food.pk %}">{{food.title}}</a></h3>
+                        <div class="price-status" itemprop="price">
+                            <span class="price">${{food.price}} </span>
+                        </div>
+                        <p itemprop="description">{{food.description}}</p>
+                    </div>
+                </div>
+            </div>
+
+            {% endfor %}
+
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+
+
 {% endblock %}
